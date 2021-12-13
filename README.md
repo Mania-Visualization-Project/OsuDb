@@ -10,7 +10,7 @@ String
 | :--: | :----: | :----------: |
 | 0x0B | length | string data |
 
-**In latest version of osu!, empty string can be presented by a single byte 0x00, so both pattens bellow are legal empty strings:**
+**In some cases, empty string can be presented by a single byte 0x00, so both pattens bellow are legal empty strings:**
 
 - 0x0B00
 - 0x00
@@ -57,4 +57,4 @@ Record
 |       Unkown       | 4bytes |     0xFFFFFFFF     |
 |     Record Id     | uint64 |     1357537685     |
 
-> Gamemode: 3-mania
+> Gamemode: 0-std, 1-taiko, 2-catch, 3-mania
