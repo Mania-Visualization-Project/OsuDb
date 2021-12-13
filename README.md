@@ -10,6 +10,11 @@ String
 | :--: | :----: | :----------: |
 | 0x0B | length | string data |
 
+**In latest version of osu!, empty string can be presented by a single byte 0x00, so both pattens bellow are legal empty strings:**
+
+- 0x0B00
+- 0x00
+
 ### scores.db
 
 Structure
@@ -30,25 +35,26 @@ RecordCollection
 
 Record
 
-|  Description  |  Type  |      Example      |
-| :------------: | :----: | :----------------: |
-|   Game Mode   | uint8 |         3         |
-|  Osu Version  | uint32 |      20210821      |
-|  Beatmap MD5  | string |     string(32)     |
-|  Player Name  | string |       Rain 7       |
-|   Replay MD5   | string |     string(32)     |
-|     Unkown     | unit16 |        730        |
-|     Unkown     | unit16 |         32         |
-|     Unkown     | unit16 |         6         |
-|     Unkown     | unit16 |         94         |
-|     Unkown     | unit16 |         95         |
-|     Unkown     | unit16 |         24         |
-|     Score     | unit32 |       853922       |
-|     Combo     | unit16 |        792        |
-| Is Full Combo | uint8? |         0         |
-|     Unkown     | 5bytes |                   |
-| Play Time(UTC) | uint64 | 637742886299537246 |
-|     Unkown     | 4bytes |     0xFFFFFFFF     |
-|     Unkown     | uint64 |     1357537685     |
+|    Description    |  Type  |      Example      |
+| :----------------: | :----: | :----------------: |
+|     Game Mode     | uint8 |         3         |
+|    Osu Version    | uint32 |      20210821      |
+|    Beatmap MD5    | string |     string(32)     |
+|    Player Name    | string |       Rain 7       |
+|     Replay MD5     | string |     string(32)     |
+|     300 Count     | unit16 |        730        |
+|     100 Count     | unit16 |         32         |
+|      50 Count      | unit16 |         6         |
+| Colorful 300 Count | unit16 |         94         |
+|     200 Count     | unit16 |         95         |
+|     Miss Count     | unit16 |         24         |
+|       Score       | unit32 |       853922       |
+|       Combo       | unit16 |        792        |
+|   Is Full Combo   | uint8 |         0         |
+|        Mods        | uint32 |         0         |
+|    Performance    | string |       string       |
+|   Play Time(UTC)   | uint64 | 637742886299537246 |
+|       Unkown       | 4bytes |     0xFFFFFFFF     |
+|     Record Id     | uint64 |     1357537685     |
 
 > Gamemode: 3-mania
