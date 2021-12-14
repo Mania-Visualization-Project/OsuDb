@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "OsuDb.ReplayMasterUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "OsuDb.ReplayMasterUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

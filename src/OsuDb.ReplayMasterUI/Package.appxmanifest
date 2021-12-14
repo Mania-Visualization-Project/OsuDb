@@ -7,14 +7,14 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="1a902efb-61d4-4d6b-833f-77c49a3b00c1"
-    Publisher="CN=Mania Visualization Project"
-    Version="1.0.0.0" />
+    Name="10285TokenTeam.ManiaReplayMaster"
+    Publisher="CN=70AFA52F-6E22-4194-9756-D728AC6196CF"
+    Version="1.0.3.0" />
 
   <Properties>
     <DisplayName>Mania Replay Master</DisplayName>
-    <PublisherDisplayName>Mania Visualization Project</PublisherDisplayName>
-    <Logo>Images\StoreLogo.png</Logo>
+    <PublisherDisplayName>Token Team</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
   <Dependencies>
@@ -34,16 +34,15 @@
         DisplayName="Mania Replay Master"
         Description="Mania Replay Master"
         BackgroundColor="transparent"
-        Square150x150Logo="Images\Square150x150Logo.png"
-        Square44x44Logo="Images\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" />
-        <uap:SplashScreen Image="Images\SplashScreen.png" />
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>
   </Applications>
 
   <Capabilities>
-    <rescap:Capability Name="runFullTrust" />
     <Capability Name="internetClient"/>
   </Capabilities>
 </Package>
