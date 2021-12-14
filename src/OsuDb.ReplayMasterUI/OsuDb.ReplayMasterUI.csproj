@@ -12,6 +12,7 @@
     <UseWinUI>true</UseWinUI>
     <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
     <DefaultLanguage>zh-CN</DefaultLanguage>
+	<WindowsPackageType>None</WindowsPackageType>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Pages\HomePage.xaml" />

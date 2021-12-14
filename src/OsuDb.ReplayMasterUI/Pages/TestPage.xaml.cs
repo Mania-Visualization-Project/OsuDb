@@ -57,5 +57,23 @@ namespace OsuDb.ReplayMasterUI.Pages
                 log.Text += $"{score}\n";
             }
         }
+
+        private void ReadBeadMaps_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button ?? throw new InvalidCastException();
+            var reader = DI.GetService<OsuDbReader>();
+            if (osuRootDirectory is null)
+            {
+                log.Text += $"{button.Name}: cant find osu! directory.\n";
+                return;
+            }
+            var beatmaps = reader.ReadBeatmapsAsync(Path.Combine(osuRootDirectory, "osu!.db")).Result;
+            log.Text += "\n";
+            log.Text += $"{button.Name}: read {beatmaps.Beatmaps.Count()} maps:\n";
+            foreach (var beatmap in beatmaps.Beatmaps)
+            {
+                log.Text += $"{beatmap}\n";
+            }
+        }
     }
 }
