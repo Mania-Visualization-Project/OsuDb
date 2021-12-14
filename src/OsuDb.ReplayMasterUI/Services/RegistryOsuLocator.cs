@@ -17,6 +17,7 @@ namespace OsuDb.ReplayMasterUI.Services
             if (!osuExePathMatch.Success) return null;
 
             var file = new FileInfo(osuExePathMatch.Groups[1].Value);
+            if (!file.Exists) return null;
             return file.Directory;
         }
     }

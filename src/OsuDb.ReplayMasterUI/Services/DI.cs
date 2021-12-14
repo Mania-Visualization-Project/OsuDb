@@ -26,6 +26,7 @@ namespace OsuDb.ReplayMasterUI.Services
         {
             services.AddTransient<IOsuLocator, RegistryOsuLocator>();
             services.AddSingleton<OsuDbReader>();
+            
         }
     }
 }
