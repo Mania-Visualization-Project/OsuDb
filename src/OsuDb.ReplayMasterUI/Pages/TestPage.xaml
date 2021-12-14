@@ -1,0 +1,22 @@
+﻿<Page
+    x:Class="OsuDb.ReplayMasterUI.Pages.TestPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:OsuDb.ReplayMasterUI.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <StackPanel Margin="30" Spacing="10">
+        <TextBlock Text="Local Service Tests" Style="{StaticResource SubtitleTextBlockStyle}"/>
+        <StackPanel Margin="10" Orientation="Horizontal" Spacing="20">
+            <Button x:Name="GetOsuPath" Content="GetOsuPath" Click="GetOsuPath_Click" Style="{StaticResource AccentButtonStyle}"/>
+        </StackPanel>
+        <Border Height="300" BorderBrush="Black" BorderThickness="1" CornerRadius="8">
+            <ScrollViewer Margin="10">
+                <TextBlock x:Name="log" TextWrapping="Wrap"/>
+            </ScrollViewer>
+        </Border>
+    </StackPanel>
+</Page>

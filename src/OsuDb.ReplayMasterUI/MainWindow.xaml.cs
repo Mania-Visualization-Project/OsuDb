@@ -33,14 +33,14 @@ namespace OsuDb.ReplayMasterUI
         // List of ValueTuple holding the Navigation Tag and the relative Navigation Page
         private readonly List<(string Tag, Type Page)> _pages = new List<(string Tag, Type Page)>
         {
-            ("home", typeof(HomePage)),
+            ("home", typeof(TestPage)),
             ("replay", typeof(ReplayPage)),
             ("settings", typeof(SettingsPage)),
         };
 
         private void NavigationView_Loaded(object sender, RoutedEventArgs e)
         {
-            var navView = sender as NavigationView;
+            var navView = sender as NavigationView ?? throw new InvalidCastException();
             navView.SelectedItem = navView.MenuItems.First();
         }
 
@@ -52,14 +52,14 @@ namespace OsuDb.ReplayMasterUI
             }
             else
             {
-                var tag = args.SelectedItemContainer.Tag.ToString();
+                var tag = args.SelectedItemContainer.Tag.ToString()!;
                 NavView_Navigate(tag, args.RecommendedNavigationTransitionInfo);
             }
         }
 
         private void NavView_Navigate(string navItemTag, NavigationTransitionInfo transitionInfo)
         {
-            Type _page = null;
+            Type _page;
             var item = _pages.FirstOrDefault(p => p.Tag == navItemTag);
             _page = item.Page;
 
