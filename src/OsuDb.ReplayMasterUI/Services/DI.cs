@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OsuDb.Core;
 using System;
 
 namespace OsuDb.ReplayMasterUI.Services
@@ -24,6 +25,7 @@ namespace OsuDb.ReplayMasterUI.Services
         private static void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IOsuLocator, RegistryOsuLocator>();
+            services.AddSingleton<OsuDbReader>();
         }
     }
 }

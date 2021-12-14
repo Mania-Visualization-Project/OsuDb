@@ -12,6 +12,7 @@
         <TextBlock Text="Local Service Tests" Style="{StaticResource SubtitleTextBlockStyle}"/>
         <StackPanel Margin="10" Orientation="Horizontal" Spacing="20">
             <Button x:Name="GetOsuPath" Content="GetOsuPath" Click="GetOsuPath_Click" Style="{StaticResource AccentButtonStyle}"/>
+            <Button x:Name="ReadReplays" Content="ReadReplays" Click="ReadReplays_Click" Style="{StaticResource AccentButtonStyle}"/>
         </StackPanel>
         <Border Height="300" BorderBrush="Black" BorderThickness="1" CornerRadius="8">
             <ScrollViewer Margin="10">

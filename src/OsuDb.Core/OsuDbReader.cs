@@ -10,7 +10,7 @@ namespace OsuDb.Core
 {
     public class OsuDbReader
     {
-        public static OsuScoresDb ReadScores(string dbFilePath)
+        public OsuScoresDb ReadScores(string dbFilePath)
         {
             _ = File.Exists(dbFilePath) ? true : throw new FileNotFoundException("cant find db file");
             using var file = File.OpenRead(dbFilePath);

@@ -45,6 +45,9 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OsuDb.Core\OsuDb.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Pages\TestPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
