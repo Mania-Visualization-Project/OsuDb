@@ -81,5 +81,17 @@ namespace OsuDb.ReplayMasterUI.Pages
             DoFilter();
             progressRing.IsActive = false;
         }
+
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (viewModel is null) return;
+            var textbox = sender as TextBox;
+            var word = textbox!.Text;
+            if (string.IsNullOrEmpty(word)) return;
+            viewModel.Filter(replays =>
+            {
+                return replays.Where(r => r.Title.Contains(word, StringComparison.OrdinalIgnoreCase));
+            });
+        }
     }
 }
