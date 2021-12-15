@@ -8,12 +8,28 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <StackPanel Padding="24">
-        <StackPanel Margin="0 8" Spacing="10">
-            <TextBlock Text="主页" FontSize="36"/>
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Margin="10 0" Grid.Row="0" VerticalAlignment="Center">
+            <TextBlock Text="主页" Style="{StaticResource TitleTextBlockStyle}"/>
+        </Grid>
+        <StackPanel Grid.Row="1" Spacing="15" Margin="10 10 0 0">
+            <StackPanel Orientation="Horizontal" Spacing="20">
+                <TextBlock VerticalAlignment="Center" FontSize="20" Text="Osu主程序所在目录:" Style="{StaticResource BodyTextBlockStyle}"/>
+                <TextBlock VerticalAlignment="Center" FontSize="20" Text="{Binding OsuRootPath}" Style="{StaticResource BodyTextBlockStyle}"/>
+                <Button x:Name="SelectPath" Click="SelectPath_Click" Content="手动选择" FontSize="18" Style="{StaticResource AccentButtonStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="20">
+                <TextBlock VerticalAlignment="Center" FontSize="20" Text="Osu谱面数据库:"/>
+                <TextBlock VerticalAlignment="Center" FontSize="20" Text="{Binding OsuBeatmapDbStatus}" Style="{StaticResource BodyTextBlockStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="20">
+                <TextBlock VerticalAlignment="Center" FontSize="20" Text="Osu成绩数据库:"/>
+                <TextBlock VerticalAlignment="Center" FontSize="20" Text="{Binding OsuScoreDbStatus}" Style="{StaticResource BodyTextBlockStyle}"/>
+            </StackPanel>
         </StackPanel>
-        <StackPanel>
-            <TextBlock Text="content"/>
-        </StackPanel>
-    </StackPanel>
+    </Grid>
 </Page>

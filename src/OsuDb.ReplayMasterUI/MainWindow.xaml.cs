@@ -1,20 +1,14 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
-using Microsoft.UI.Xaml.Navigation;
 using OsuDb.ReplayMasterUI.Pages;
 using OsuDb.ReplayMasterUI.Services;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -29,15 +23,29 @@ namespace OsuDb.ReplayMasterUI
         public MainWindow()
         {
             this.InitializeComponent();
+            m_hwnd = WinRT.Interop.WindowNative.GetWindowHandle(this);
             var config = DI.GetService<Config>();
             var locator = DI.GetService<IOsuLocator>();
             config.OsuRootPath = locator.GetOsuRootDirectory()?.FullName ?? string.Empty;
         }
 
+        public async Task<StorageFolder?> BrowseSingleFolder()
+        {
+            var folderPicker = new FolderPicker();
+            folderPicker.FileTypeFilter.Add("*");
+
+            //Make folder Picker work in Win32
+            WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, m_hwnd);
+
+            return await folderPicker.PickSingleFolderAsync();
+        }
+
+        private readonly IntPtr m_hwnd;
+
         // List of ValueTuple holding the Navigation Tag and the relative Navigation Page
         private readonly List<(string Tag, Type Page)> _pages = new List<(string Tag, Type Page)>
         {
-            ("home", typeof(TestPage)),
+            ("home", typeof(HomePage)),
             ("replay", typeof(ReplayPage)),
             ("settings", typeof(SettingsPage)),
         };

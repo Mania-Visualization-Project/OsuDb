@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
+using OsuDb.ReplayMasterUI.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -42,7 +43,8 @@ namespace OsuDb.ReplayMasterUI
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            m_window = new MainWindow();
+            DI.RegiserMainWindow<MainWindow>();
+            m_window = DI.GetService<MainWindow>();
             m_window.Activate();
         }
 

@@ -1,17 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using OsuDb.ReplayMasterUI.Services;
+using OsuDb.ReplayMasterUI.ViewModels;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -26,6 +16,23 @@ namespace OsuDb.ReplayMasterUI.Pages
         public HomePage()
         {
             this.InitializeComponent();
+            viewModel = DI.GetService<HomeViewModel>();
+            mainWindow = DI.GetService<MainWindow>();
+            DataContext = viewModel;
+        }
+
+        private readonly HomeViewModel viewModel;
+        private readonly MainWindow mainWindow;
+
+        private async void SelectPath_Click(object sender, RoutedEventArgs e)
+        {
+            var folder = await mainWindow.BrowseSingleFolder();
+
+            if (folder is null) return;
+
+            viewModel.SetOsuRootPath(folder.Path);
+            DataContext = null;
+            DataContext = viewModel;
         }
     }
 }

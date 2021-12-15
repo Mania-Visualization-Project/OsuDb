@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml;
 using OsuDb.Core;
 using OsuDb.ReplayMasterUI.ViewModels;
 using System;
@@ -10,8 +11,6 @@ namespace OsuDb.ReplayMasterUI.Services
         static DI()
         {
             Services = new ServiceCollection();
-            ConfigureServices(Services);
-            serviceProvider = Services.BuildServiceProvider();
         }
 
         public static T GetService<T>() where T : notnull
@@ -19,9 +18,16 @@ namespace OsuDb.ReplayMasterUI.Services
             return serviceProvider.GetRequiredService<T>();
         }
 
+        public static void RegiserMainWindow<T>() where T : Window
+        {
+            ConfigureServices(Services);
+            Services.AddSingleton<T>();
+            serviceProvider = Services.BuildServiceProvider();
+        }
+
         private static IServiceCollection Services { get; set; }
 
-        private static readonly IServiceProvider serviceProvider;
+        private static IServiceProvider serviceProvider = null!;
 
         private static void ConfigureServices(IServiceCollection services)
         {
@@ -31,7 +37,7 @@ namespace OsuDb.ReplayMasterUI.Services
             services.AddSingleton<OsuDbService>();
 
             services.AddTransient<ReplayViewModel>();
-            
+            services.AddTransient<HomeViewModel>();
         }
     }
 }
