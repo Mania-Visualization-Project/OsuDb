@@ -28,7 +28,20 @@ namespace OsuDb.ReplayMasterUI.Pages
         public TestPage()
         {
             this.InitializeComponent();
+            DataContext = this;
         }
+
+
+        public string Log
+        {
+            get { return (string)GetValue(LogProperty); }
+            set { SetValue(LogProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Log.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LogProperty =
+            DependencyProperty.Register("Log", typeof(string), typeof(TestPage), new PropertyMetadata(""));
+
 
         private string osuRootDirectory = null!;
 
@@ -38,42 +51,66 @@ namespace OsuDb.ReplayMasterUI.Pages
             var locator = DI.GetService<IOsuLocator>();
             var dir = locator.GetOsuRootDirectory();
             osuRootDirectory = dir?.FullName!;
-            log.Text += $"{button.Name}: {dir?.FullName}\n";
+            Log += $"{button.Name}: {dir?.FullName}\n";
         }
 
-        private void ReadReplays_Click(object sender, RoutedEventArgs e)
+        private async void ReadReplays_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button ?? throw new InvalidCastException();
             var reader = DI.GetService<OsuDbReader>();
             if (osuRootDirectory is null)
             {
-                log.Text += $"{button.Name}: cant find osu! directory.\n";
+                Log += $"{button.Name}: cant find osu! directory.\n";
                 return;
             }
-            var records = reader.ReadScores(Path.Combine(osuRootDirectory, "scores.db"));
-            log.Text += "\n";
-            foreach (var score in records.Scores)
+
+            var progress = new Progress<(int, int)>(p =>
             {
-                log.Text += $"{score}\n";
+                processIndicator.Text = $"{p.Item1}/{p.Item2}\n";
+            });
+
+            button.IsEnabled = false;
+
+            try
+            {
+                var scoresDb = await reader.ReadScores(Path.Combine(osuRootDirectory, "scores.db"), progress);
+                Log += "\n";
+                foreach (var score in scoresDb.Scores)
+                {
+                    Log += $"{score}\n";
+                }
             }
+            finally { button.IsEnabled = true; }
         }
 
-        private void ReadBeadMaps_Click(object sender, RoutedEventArgs e)
+        private async void ReadBeadMaps_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button ?? throw new InvalidCastException();
             var reader = DI.GetService<OsuDbReader>();
             if (osuRootDirectory is null)
             {
-                log.Text += $"{button.Name}: cant find osu! directory.\n";
+                Log += $"{button.Name}: cant find osu! directory.\n";
                 return;
             }
-            var beatmaps = reader.ReadBeatmapsAsync(Path.Combine(osuRootDirectory, "osu!.db")).Result;
-            log.Text += "\n";
-            log.Text += $"{button.Name}: read {beatmaps.Beatmaps.Count()} maps:\n";
-            foreach (var beatmap in beatmaps.Beatmaps)
+            var progress = new Progress<(int, int)>(p =>
             {
-                log.Text += $"{beatmap}\n";
+                processIndicator.Text = $"{p.Item1}/{p.Item2}\n";
+            });
+
+            button.IsEnabled = false;
+
+            try
+            {
+
+                var beatmaps = await reader.ReadBeatmapsAsync(Path.Combine(osuRootDirectory, "osu!.db"), progress);
+                Log += "\n";
+                Log += $"{button.Name}: read {beatmaps.Beatmaps.Count()} maps:\n";
+                foreach (var beatmap in beatmaps.Beatmaps)
+                {
+                    Log += $"{beatmap}\n";
+                }
             }
+            finally { button.IsEnabled = true; }
         }
     }
 }

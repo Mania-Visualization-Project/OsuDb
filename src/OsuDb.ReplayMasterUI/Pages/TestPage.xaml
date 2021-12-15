@@ -14,10 +14,11 @@
             <Button x:Name="GetOsuPath" Content="GetOsuPath" Click="GetOsuPath_Click" Style="{StaticResource AccentButtonStyle}"/>
             <Button x:Name="ReadReplays" Content="ReadReplays" Click="ReadReplays_Click" Style="{StaticResource AccentButtonStyle}"/>
             <Button x:Name="ReadBeatmaps" Content="ReadBeatmaps" Click="ReadBeadMaps_Click" Style="{StaticResource AccentButtonStyle}"/>
+            <TextBlock x:Name="processIndicator" VerticalAlignment="Stretch"/>
         </StackPanel>
         <Border Height="450" BorderBrush="Black" BorderThickness="1" CornerRadius="8">
-            <ScrollViewer Margin="10">
-                <TextBlock x:Name="log" TextWrapping="Wrap"/>
+            <ScrollViewer x:Name="scroller" Margin="10">
+                <TextBlock TextWrapping="Wrap" Text="{Binding Log}"/>
             </ScrollViewer>
         </Border>
     </StackPanel>

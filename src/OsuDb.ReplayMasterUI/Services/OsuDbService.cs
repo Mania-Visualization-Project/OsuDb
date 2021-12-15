@@ -21,17 +21,14 @@ namespace OsuDb.ReplayMasterUI.Services
         public Core.Data.OsuScoresDb ScoreDb { get; private set; } = null!;
         public Core.Data.OsuBeatmapDb OsuBeatmapDb { get; private set; } = null!;
 
-        public async Task RefreshScoreDbAsync()
+        public async Task RefreshScoreDbAsync(IProgress<(int, int)> progress)
         {
-            await Task.Run(() =>
-            {
-                ScoreDb = reader.ReadScores(config.OsuScoreDbPath);
-            }).ConfigureAwait(false);
+            ScoreDb = await reader.ReadScores(config.OsuScoreDbPath, progress).ConfigureAwait(false);
         }
 
-        public async Task RefreshBeatmapDbAsync()
+        public async Task RefreshBeatmapDbAsync(IProgress<(int, int)> progress)
         {
-            OsuBeatmapDb = await reader.ReadBeatmapsAsync(config.OsuBeatmapDbPath).ConfigureAwait(false);
+            OsuBeatmapDb = await reader.ReadBeatmapsAsync(config.OsuBeatmapDbPath, progress).ConfigureAwait(false);
         }
     }
 }

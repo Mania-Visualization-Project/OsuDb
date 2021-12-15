@@ -5,7 +5,7 @@ namespace OsuDb.Core
 {
     public class OsuDbReader
     {
-        public OsuScoresDb ReadScores(string dbFilePath)
+        public async Task<OsuScoresDb> ReadScores(string dbFilePath, IProgress<(int, int)> progress)
         {
             _ = File.Exists(dbFilePath) ? true : throw new FileNotFoundException("cant find db file");
             using var file = File.OpenRead(dbFilePath);
@@ -19,14 +19,18 @@ namespace OsuDb.Core
             var result = new OsuScoresDb() { Version = version, ScoreCollections = new(collectionCount) };
             var dic = result.ScoreCollections;
 
-            // read all collections
-            while (collectionCount --> 0)
+            // read all collections async
+            await Task.Run(() =>
             {
-                var md5 = reader.ReadOsuString();
-                var count = reader.ReadInt32();
-                var records = ReadRecords(reader, count);
-                dic.Add(md5, records);
-            }
+                for (var i = 0; i < collectionCount; i++)
+                {
+                    var md5 = reader.ReadOsuString();
+                    var count = reader.ReadInt32();
+                    var records = ReadRecords(reader, count);
+                    dic.Add(md5, records);
+                    progress.Report((i, collectionCount));
+                }
+            });
 
             reader.Close();
             file.Close();
@@ -34,7 +38,7 @@ namespace OsuDb.Core
             return result;
         }
 
-        public async Task<OsuBeatmapDb> ReadBeatmapsAsync(string dbFilePath)
+        public async Task<OsuBeatmapDb> ReadBeatmapsAsync(string dbFilePath, IProgress<(int,int)> progress)
         {
             _ = File.Exists(dbFilePath) ? true : throw new FileNotFoundException("cant find db file");
             using var file = File.OpenRead(dbFilePath);
@@ -56,16 +60,16 @@ namespace OsuDb.Core
 
             await Task.Run(() =>
             {
-                list.AddRange(ReadBeatmaps(reader, fileCount));
+                list.AddRange(ReadBeatmaps(reader, fileCount, progress));
             }).ConfigureAwait(false);
 
             result.Beatmaps = list;
             return result;
         }
 
-        private static IEnumerable<OsuBeatmap> ReadBeatmaps(BinaryReader reader, int count)
+        private static IEnumerable<OsuBeatmap> ReadBeatmaps(BinaryReader reader, int count, IProgress<(int,int)> progress)
         {
-            while (count --> 0)
+            for(var t = 1; t <= count; t++)
             {
                 var result = new OsuBeatmap();
                 result.Artist = reader.ReadOsuString();
@@ -135,7 +139,7 @@ namespace OsuDb.Core
                 result.FolderName = reader.ReadOsuString();
                 // Skip Else 18 bytes
                 _ = reader.ReadBytes(18);
-
+                progress.Report((t, count));
                 yield return result;
             }
         }
