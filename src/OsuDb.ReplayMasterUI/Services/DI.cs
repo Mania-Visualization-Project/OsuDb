@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OsuDb.Core;
+using OsuDb.ReplayMasterUI.ViewModels;
 using System;
 
 namespace OsuDb.ReplayMasterUI.Services
@@ -28,6 +29,8 @@ namespace OsuDb.ReplayMasterUI.Services
             services.AddSingleton<OsuDbReader>();
             services.AddSingleton<Config>();
             services.AddSingleton<OsuDbService>();
+
+            services.AddTransient<ReplayViewModel>();
             
         }
     }

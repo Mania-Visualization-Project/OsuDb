@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using OsuDb.ReplayMasterUI.Pages;
+using OsuDb.ReplayMasterUI.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,6 +29,9 @@ namespace OsuDb.ReplayMasterUI
         public MainWindow()
         {
             this.InitializeComponent();
+            var config = DI.GetService<Config>();
+            var locator = DI.GetService<IOsuLocator>();
+            config.OsuRootPath = locator.GetOsuRootDirectory()?.FullName ?? string.Empty;
         }
 
         // List of ValueTuple holding the Navigation Tag and the relative Navigation Page

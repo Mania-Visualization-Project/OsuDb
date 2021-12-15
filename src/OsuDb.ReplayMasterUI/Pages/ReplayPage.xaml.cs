@@ -5,6 +5,8 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using OsuDb.ReplayMasterUI.Services;
+using OsuDb.ReplayMasterUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,6 +28,21 @@ namespace OsuDb.ReplayMasterUI.Pages
         public ReplayPage()
         {
             this.InitializeComponent();
+            viewModel = DI.GetService<ReplayViewModel>();
+            InitDataContext();
         }
+
+        private async void InitDataContext()
+        {
+            if (!viewModel.DataInited)
+            {
+                progressRing.IsActive = true;
+                await viewModel.RefreshAsync(new Progress<(int, int)>());
+            }
+            DataContext = viewModel;
+            progressRing.IsActive = false;
+        }
+
+        private readonly ReplayViewModel viewModel;
     }
 }
