@@ -46,13 +46,13 @@ namespace OsuDb.Core
 
             // read header
             var version = reader.ReadUInt32();
-            var fileCount = reader.ReadInt32();
+            _ = reader.ReadInt32();
 
             // skip useless head data
             _ = reader.ReadByte();
             _ = reader.ReadInt64();
             _ = reader.ReadOsuString();
-            _ = reader.ReadInt32();
+            var fileCount = reader.ReadInt32();
 
             // allocate result dictionary
             var result = new OsuBeatmapDb() { Version = version };
