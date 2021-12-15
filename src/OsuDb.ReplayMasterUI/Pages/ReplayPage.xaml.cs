@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -34,11 +35,9 @@ namespace OsuDb.ReplayMasterUI.Pages
 
         private async void InitDataContext()
         {
-            if (!viewModel.DataInited)
-            {
-                progressRing.IsActive = true;
-                await viewModel.RefreshAsync(new Progress<(int, int)>());
-            }
+            progressRing.IsActive = true;
+            await viewModel.RefreshAsync(new Progress<(int, int)>());
+            await Task.Delay(300);
             DataContext = viewModel;
             progressRing.IsActive = false;
         }
@@ -70,6 +69,17 @@ namespace OsuDb.ReplayMasterUI.Pages
                     result = result.Where(r => r.Mode is Core.Data.GameMode.Taiko);
                 return result;
             });
+        }
+
+        private async void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            progressRing.IsActive = true;
+            DataContext = null;
+            await viewModel.RefreshAsync(new Progress<(int, int)>());
+            await Task.Delay(300);
+            DataContext = viewModel;
+            DoFilter();
+            progressRing.IsActive = false;
         }
     }
 }

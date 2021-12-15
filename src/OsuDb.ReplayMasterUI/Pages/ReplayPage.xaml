@@ -18,6 +18,7 @@
         <Grid Margin="10 0" Grid.Row="0" VerticalAlignment="Center">
             <TextBlock Text="回放列表" Style="{StaticResource TitleTextBlockStyle}"/>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button x:Name="Refresh" Width="80" Margin="0 0 20 0" Style="{StaticResource AccentButtonStyle}" Content="刷新" Click="Refresh_Click"/>
                 <CheckBox x:Name="FcOnly" Checked="FcOnly_Checked" Unchecked="FcOnly_Checked" VerticalAlignment="Bottom">
                     <TextBlock Text="仅显示FC" Style="{StaticResource BaseTextBlockStyle}"/>
                 </CheckBox>

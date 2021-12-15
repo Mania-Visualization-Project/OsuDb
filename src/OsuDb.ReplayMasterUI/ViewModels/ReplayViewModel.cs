@@ -41,8 +41,6 @@ namespace OsuDb.ReplayMasterUI.ViewModels
             }
         }
 
-        public bool DataInited => osuDbService.OsuBeatmapDb is not null && osuDbService.ScoreDb is not null;
-
         private readonly OsuDbService osuDbService;
         private ObservableCollection<ReplayModel> replays = null!;
 
