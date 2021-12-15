@@ -64,7 +64,7 @@ namespace OsuDb.ReplayMasterUI.ViewModels
                     PlayTime = score.PlayTime,
                     Score = (int)score.Score,
                     Player = score.PlayerName,
-                    Title = $"{beatmap.Artist} - {beatmap.Title} [{beatmap.Difficulty}]",
+                    Title = $"{beatmap!.Artist} - {beatmap.Title} [{beatmap.Difficulty}]",
                     AudioFileName = beatmap.AudioFileName,
                     BeatmapFileName = beatmap.BeatmapFileName,
                     FolderName = beatmap.FolderName,
