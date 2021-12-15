@@ -1,4 +1,5 @@
-﻿using OsuDb.ReplayMasterUI.Services;
+﻿using OsuDb.Core.Data;
+using OsuDb.ReplayMasterUI.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,6 +18,15 @@ namespace OsuDb.ReplayMasterUI.ViewModels
 
         public ObservableCollection<ReplayModel> Replays => replays ??= new ObservableCollection<ReplayModel>();
 
+        public void Filter(Func<IEnumerable<ReplayModel>, IEnumerable<ReplayModel>> filter)
+        {
+            var filtered = filter.Invoke(GetAllreplaysFromCache().OrderByDescending(x => x.PlayTime));
+            Replays.Clear();
+            foreach (var replay in filtered)
+            {
+                Replays.Add(replay);
+            }
+        }
 
         public async Task RefreshAsync(IProgress<(int,int)> progress)
         {
@@ -25,11 +35,24 @@ namespace OsuDb.ReplayMasterUI.ViewModels
             await osuDbService.RefreshScoreDbAsync(progress).ConfigureAwait(false);
 
             Replays.Clear();
+            foreach (var replay in GetAllreplaysFromCache().OrderByDescending(x => x.PlayTime))
+            {
+                Replays.Add(replay);
+            }
+        }
+
+        public bool DataInited => osuDbService.OsuBeatmapDb is not null && osuDbService.ScoreDb is not null;
+
+        private readonly OsuDbService osuDbService;
+        private ObservableCollection<ReplayModel> replays = null!;
+
+        private IEnumerable<ReplayModel> GetAllreplaysFromCache()
+        {
             foreach (var score in osuDbService.ScoreDb.Scores.OrderByDescending(x => x.PlayTime))
             {
                 var mapExsists = osuDbService.OsuBeatmapDb!.BeatmapHashDic.TryGetValue(score.BeatmapMd5, out var beatmap);
                 if (!mapExsists) continue;
-                Replays.Add(new ReplayModel
+                yield return new ReplayModel
                 {
                     BeatmapMd5 = score.BeatmapMd5,
                     Combo = score.Combo,
@@ -48,13 +71,8 @@ namespace OsuDb.ReplayMasterUI.ViewModels
                     BeatmapFileName = beatmap.BeatmapFileName,
                     FolderName = beatmap.FolderName,
                     Mode = beatmap.GameMode
-                });
+                };
             }
         }
-
-        public bool DataInited => osuDbService.OsuBeatmapDb is not null && osuDbService.ScoreDb is not null;
-
-        private readonly OsuDbService osuDbService;
-        private ObservableCollection<ReplayModel> replays = null!;
     }
 }

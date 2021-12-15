@@ -18,12 +18,13 @@
         <Grid Margin="10 0" Grid.Row="0" VerticalAlignment="Center">
             <TextBlock Text="回放列表" Style="{StaticResource TitleTextBlockStyle}"/>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <CheckBox VerticalAlignment="Bottom">
+                <CheckBox x:Name="FcOnly" Checked="FcOnly_Checked" Unchecked="FcOnly_Checked" VerticalAlignment="Bottom">
                     <TextBlock Text="仅显示FC" Style="{StaticResource BaseTextBlockStyle}"/>
                 </CheckBox>
                 <TextBlock Margin="0 5 10 0" VerticalAlignment="Center" Text="游戏模式" Style="{StaticResource BaseTextBlockStyle}"/>
-                <ComboBox Width="120" VerticalAlignment="Bottom" SelectedIndex="0">
+                <ComboBox x:Name="FilterMode" Width="120" SelectionChanged="FilterMode_SelectionChanged" VerticalAlignment="Bottom" SelectedIndex="0">
                     <ComboBox.Items>
+                        <ComboBoxItem Tag="all" Content="All"/>
                         <ComboBoxItem Tag="mania" Content="Mania"/>
                         <ComboBoxItem Tag="taiko" Content="Taiko"/>
                     </ComboBox.Items>

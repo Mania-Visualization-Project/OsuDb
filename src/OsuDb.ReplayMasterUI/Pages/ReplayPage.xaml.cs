@@ -44,5 +44,32 @@ namespace OsuDb.ReplayMasterUI.Pages
         }
 
         private readonly ReplayViewModel viewModel;
+
+        private void FcOnly_Checked(object sender, RoutedEventArgs e)
+        {
+            DoFilter();
+        }
+
+        private void FilterMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DoFilter();
+        }
+
+        private void DoFilter()
+        {
+            if (viewModel is null) return;
+            viewModel.Filter(replays =>
+            {
+                var result = replays;
+                if (FcOnly.IsChecked == true)
+                    result = result.Where(r => r.IsFullCombo);
+                var tag = (FilterMode.SelectedItem as ComboBoxItem)?.Tag as string;
+                if (tag == "mania")
+                    result = result.Where(r => r.Mode is Core.Data.GameMode.Mania);
+                if (tag == "taiko")
+                    result = result.Where(r => r.Mode is Core.Data.GameMode.Taiko);
+                return result;
+            });
+        }
     }
 }
