@@ -20,9 +20,9 @@ namespace OsuDb.ReplayMasterUI.ViewModels
 
         public void Filter(Func<IEnumerable<ReplayModel>, IEnumerable<ReplayModel>> filter)
         {
-            var filtered = filter.Invoke(GetAllreplaysFromCache().OrderByDescending(x => x.PlayTime));
+            var filtered = filter.Invoke(GetAllreplaysFromCache());
             Replays.Clear();
-            foreach (var replay in filtered)
+            foreach (var replay in filtered.OrderByDescending(x => x.PlayTime))
             {
                 Replays.Add(replay);
             }
