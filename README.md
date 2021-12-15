@@ -66,11 +66,11 @@ Structure
 | Description | Type | Example |
 | :---: | :---: | :---: |
 | Version | unit32 | 20211122 |
-| File Count | int32 | 234 |
+| Unknown | int32 | 234 |
 | Unknown Boolean | uint8 | 1 |
 | Unknown Time | int64 | ticks |
 | Unknown | string | |
-| Unknown | int32 | |
+| Count | int32 | |
 | Beatmaps | Beatmap(Count) | object |
 | Unknown | int32 | |
 
