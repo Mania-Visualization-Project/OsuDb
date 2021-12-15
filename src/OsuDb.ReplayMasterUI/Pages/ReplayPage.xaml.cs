@@ -90,7 +90,12 @@ namespace OsuDb.ReplayMasterUI.Pages
             if (string.IsNullOrEmpty(word)) return;
             viewModel.Filter(replays =>
             {
-                return replays.Where(r => r.Title.Contains(word, StringComparison.OrdinalIgnoreCase));
+                var keywords = word.Split(' ');
+                foreach (var keyword in keywords)
+                {
+                    replays = replays.Where(r => r.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+                }
+                return replays;
             });
         }
     }
