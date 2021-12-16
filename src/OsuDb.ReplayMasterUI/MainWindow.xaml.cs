@@ -40,6 +40,12 @@ namespace OsuDb.ReplayMasterUI
             return await folderPicker.PickSingleFolderAsync();
         }
 
+        public async void ShowDialog(ContentDialog dialog)
+        {
+            dialog.XamlRoot = this.Content.XamlRoot;
+            await dialog.ShowAsync();
+        }
+
         private readonly IntPtr m_hwnd;
 
         // List of ValueTuple holding the Navigation Tag and the relative Navigation Page

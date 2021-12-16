@@ -30,7 +30,36 @@ namespace OsuDb.ReplayMasterUI.Pages
         {
             this.InitializeComponent();
             viewModel = DI.GetService<ReplayViewModel>();
-            InitDataContext();
+            config = DI.GetService<Config>();
+        }
+
+        private void HandleNotInited()
+        {
+            Refresh.IsEnabled = false;
+            FcOnly.IsEnabled = false;
+            FilterMode.IsEnabled = false;
+            SearchBar.IsEnabled = false;
+            progressRing.IsActive = false;
+            var window = DI.GetService<MainWindow>();
+            var dialog = new ContentDialog
+            {
+                Content = "未找到Osu数据文件，请先配置！",
+                CloseButtonText = "确定",
+                Title = "初始化失败"
+            };
+            dialog.Closed += (s, e) =>
+            {
+                Frame.Navigate(typeof(HomePage));
+            };
+            window.ShowDialog(dialog);
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (config.OsuReady)
+                InitDataContext();
+            else
+                HandleNotInited();
         }
 
         private async void InitDataContext()
@@ -43,6 +72,7 @@ namespace OsuDb.ReplayMasterUI.Pages
         }
 
         private readonly ReplayViewModel viewModel;
+        private readonly Config config;
 
         private void FcOnly_Checked(object sender, RoutedEventArgs e)
         {
@@ -56,7 +86,7 @@ namespace OsuDb.ReplayMasterUI.Pages
 
         private void DoFilter()
         {
-            if (viewModel is null) return;
+            if (viewModel is null || DataContext is null) return;
             viewModel.Filter(replays =>
             {
                 var result = replays;

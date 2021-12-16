@@ -14,5 +14,7 @@ namespace OsuDb.ReplayMasterUI.Services
         public string OsuScoreDbPath => Path.Combine(OsuRootPath, "scores.db");
 
         public string OsuBeatmapDbPath => Path.Combine(OsuRootPath, "osu!.db");
+
+        public bool OsuReady => File.Exists(OsuScoreDbPath) && File.Exists(OsuBeatmapDbPath);
     }
 }
