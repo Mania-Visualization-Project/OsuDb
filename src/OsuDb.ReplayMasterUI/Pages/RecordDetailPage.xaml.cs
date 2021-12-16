@@ -13,6 +13,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using OsuDb.ReplayMasterUI.ViewModels;
+using OsuDb.ReplayMasterUI.Services;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -41,6 +42,12 @@ namespace OsuDb.ReplayMasterUI.Pages
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             viewModel.Dialog.Hide();
+        }
+
+        private void Export_Click(object sender, RoutedEventArgs e)
+        {
+            var renderViewModel = DI.GetService<RenderViewModel>();
+            renderViewModel.AddRenderRequest(viewModel.Replay);
         }
     }
 }

@@ -1,0 +1,42 @@
+﻿<Page
+    x:Class="OsuDb.ReplayMasterUI.Pages.RenderPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:OsuDb.ReplayMasterUI.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm ="using:OsuDb.ReplayMasterUI.ViewModels"
+    d:DataContext="{d:DesignData Type=vm:RenderModel}"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Margin="10 0" Grid.Row="0" VerticalAlignment="Center">
+            <TextBlock Text="渲染队列" Style="{StaticResource TitleTextBlockStyle}"/>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+
+            </StackPanel>
+        </Grid>
+        <ListView ItemsSource="{Binding RenderModels}" Margin="0 10 0 0" Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="vm:RenderModel">
+                    <Grid Padding="8">
+                        <StackPanel Spacing="10" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Replay.Title}" Style="{StaticResource FlyoutPickerTitleTextBlockStyle}"/>
+                            <TextBlock Text="{Binding StartTime}" Style="{StaticResource  BodyTextBlockStyle}"/>
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Right" Spacing="10" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Finished}" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                            <TextBlock Text="{Binding IsFailed}" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                            <TextBlock Text="{Binding Progress}" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

@@ -27,7 +27,7 @@ namespace OsuDb.ReplayMasterUI.Services
                     UseShellExecute = false,
                     CreateNoWindow = true,
                 };
-                return Process.Start(p)!.StandardError.ReadToEnd().Contains("java version");
+                return Process.Start(p)!.StandardError.ReadToEnd().Contains("version");
             }
         }
 

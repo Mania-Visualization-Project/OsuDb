@@ -54,6 +54,7 @@ namespace OsuDb.ReplayMasterUI
             ("home", typeof(HomePage)),
             ("replay", typeof(ReplayPage)),
             ("settings", typeof(SettingsPage)),
+            ("render", typeof(RenderPage)),
         };
 
         private void NavigationView_Loaded(object sender, RoutedEventArgs e)

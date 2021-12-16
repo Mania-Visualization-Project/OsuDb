@@ -37,10 +37,12 @@ namespace OsuDb.ReplayMasterUI.Services
             services.AddSingleton<OsuDbService>();
             services.AddSingleton<DependencyChecker>();
             services.AddSingleton<DownloadService>();
+            services.AddSingleton<RenderService>();
 
             services.AddTransient<ReplayViewModel>();
             services.AddTransient<HomeViewModel>();
             services.AddTransient<RecordDetailViewModel>();
+            services.AddSingleton<RenderViewModel>();
         }
     }
 }

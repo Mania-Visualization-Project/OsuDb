@@ -47,7 +47,7 @@
             </StackPanel>
         </Grid>
         <Grid Height="50" Width="200">
-            <Button HorizontalAlignment="Left" Content="导出" Style="{StaticResource AccentButtonStyle}" Width="80"/>
+            <Button x:Name="Export" HorizontalAlignment="Left" Content="导出" Click="Export_Click" Style="{StaticResource AccentButtonStyle}" Width="80"/>
             <Button x:Name="Close" Click="Close_Click" HorizontalAlignment="Right" Content="关闭" Width="80"/>
         </Grid>
     </StackPanel>

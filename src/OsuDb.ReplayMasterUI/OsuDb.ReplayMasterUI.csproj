@@ -30,6 +30,7 @@
     <None Remove="ManiaReplayMaster.jar" />
     <None Remove="Pages\HomePage.xaml" />
     <None Remove="Pages\RecordDetailPage.xaml" />
+    <None Remove="Pages\RenderPage.xaml" />
     <None Remove="Pages\ReplayPage.xaml" />
     <None Remove="Pages\SettingsPage.xaml" />
   </ItemGroup>
@@ -66,6 +67,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OsuDb.Core\OsuDb.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\RenderPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\RecordDetailPage.xaml">
