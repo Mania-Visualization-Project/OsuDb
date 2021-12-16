@@ -8,8 +8,8 @@
 
   <Identity
     Name="10285TokenTeam.ManiaReplayMaster"
-    Publisher="CN=70AFA52F-6E22-4194-9756-D728AC6196CF"
-    Version="1.0.3.0" />
+    Publisher="CN=azhrzho"
+    Version="1.0.4.0" />
 
   <Properties>
     <DisplayName>Mania Replay Master</DisplayName>

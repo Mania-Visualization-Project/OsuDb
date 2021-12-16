@@ -33,6 +33,8 @@
             <StackPanel Orientation="Horizontal" Spacing="20">
                 <TextBlock VerticalAlignment="Center" FontSize="20" Text="Java运行环境:"/>
                 <TextBlock VerticalAlignment="Center" FontSize="20" Text="{Binding JreStatus}" Style="{StaticResource BodyTextBlockStyle}"/>
+                <Button x:Name="InstallOpenJdk" Click="InstallOpenJdk_Click" Content="下载OpenJDK" FontSize="18" Style="{StaticResource AccentButtonStyle}"/>
+                <TextBlock x:Name="jdkDownloadProgress" VerticalAlignment="Center" FontSize="20" Text=""/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Spacing="20">
                 <TextBlock VerticalAlignment="Center" FontSize="20" Text="视频编码器:"/>
