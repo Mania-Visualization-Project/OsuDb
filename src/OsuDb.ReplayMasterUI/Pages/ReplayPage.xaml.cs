@@ -81,5 +81,17 @@ namespace OsuDb.ReplayMasterUI.Pages
             DoFilter();
             progressRing.IsActive = false;
         }
+
+        private async void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var record = e.ClickedItem as ReplayModel ?? throw new InvalidCastException();
+            var viewModel = DI.GetService<RecordDetailViewModel>();
+            viewModel.Replay = record;
+
+            var dialog = new RecordDetailDialog(viewModel);
+
+            dialog.XamlRoot = this.Content.XamlRoot;
+            await dialog.ShowAsync();
+        }
     }
 }

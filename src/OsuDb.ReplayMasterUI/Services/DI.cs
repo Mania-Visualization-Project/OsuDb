@@ -38,6 +38,7 @@ namespace OsuDb.ReplayMasterUI.Services
 
             services.AddTransient<ReplayViewModel>();
             services.AddTransient<HomeViewModel>();
+            services.AddTransient<RecordDetailViewModel>();
         }
     }
 }
