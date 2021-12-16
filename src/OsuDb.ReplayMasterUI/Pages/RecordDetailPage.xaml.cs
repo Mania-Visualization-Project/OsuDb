@@ -48,6 +48,7 @@ namespace OsuDb.ReplayMasterUI.Pages
         {
             var renderViewModel = DI.GetService<RenderViewModel>();
             renderViewModel.AddRenderRequest(viewModel.Replay);
+            viewModel.Dialog.Hide();
         }
     }
 }

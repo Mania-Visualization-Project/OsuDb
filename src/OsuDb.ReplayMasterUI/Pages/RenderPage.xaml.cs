@@ -12,6 +12,8 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using OsuDb.ReplayMasterUI.ViewModels;
+using OsuDb.ReplayMasterUI.Services;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -26,6 +28,10 @@ namespace OsuDb.ReplayMasterUI.Pages
         public RenderPage()
         {
             this.InitializeComponent();
+            viewModel = DI.GetService<RenderViewModel>();
+            DataContext = viewModel;
         }
+
+        private readonly RenderViewModel viewModel;
     }
 }

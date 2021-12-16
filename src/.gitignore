@@ -5,6 +5,7 @@
 
 /OsuDb.ReplayMasterUI/ffmpeg.exe
 /OsuDb.ReplayMasterUI/ManiaReplayMaster.jar
+/OsuDb.ReplayMasterUI/config.txt
 
 # User-specific files
 *.rsuser

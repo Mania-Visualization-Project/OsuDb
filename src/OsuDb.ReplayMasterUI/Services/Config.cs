@@ -16,6 +16,10 @@ namespace OsuDb.ReplayMasterUI.Services
 
         public string ReplayMasterPath => Path.Combine(CurrentPath, "ManiaReplayMaster.jar");
 
+        public string ReplayMasterConfigPath => Path.Combine(CurrentPath, "config.txt");
+
+        public string VideoOutputDir => Windows.Storage.KnownFolders.VideosLibrary.Path;
+
         public string OsuScoreDbPath => Path.Combine(OsuRootPath, "scores.db");
 
         public string OsuBeatmapDbPath => Path.Combine(OsuRootPath, "osu!.db");

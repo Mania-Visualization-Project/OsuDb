@@ -17,7 +17,7 @@ namespace OsuDb.ReplayMasterUI.Services
             this.dependencyChecker = checker;
         }
 
-        public int ParallelRenderConut { get; set; } = 3;
+        public int ParallelRenderConut { get; set; } = 1;
 
         private int renderingCount = 0;
 
@@ -43,13 +43,14 @@ namespace OsuDb.ReplayMasterUI.Services
             // run render.
             var message = string.Empty;
             var success = false;
-            var argument = $"-jar \"{config.ReplayMasterPath}\" \"{osuPath}\" \"{osrPath}\"";
+            var argument = $"-jar \"{config.ReplayMasterPath}\" \"{osuPath}\" \"{osrPath}\" \"{config.ReplayMasterConfigPath}\"";
             var process = new Process();
             process.StartInfo.FileName = "java.exe";
             process.StartInfo.Arguments = argument;
-            process.StartInfo.UseShellExecute = true;
-            process.StartInfo.CreateNoWindow = false;
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.CreateNoWindow = true;
             process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
             process.OutputDataReceived += (s, e) =>
             {
                 if (e.Data is null) return;
@@ -71,10 +72,12 @@ namespace OsuDb.ReplayMasterUI.Services
                 }
             };
             process.Start();
+            process.BeginOutputReadLine();
             await process.WaitForExitAsync();
             renderingCount--;
+            // var err = await process.StandardError.ReadToEndAsync();
             if (process.ExitCode == 0)
-                return (success, message);
+                 return (success, message);
             else
                 return (false, "渲染程序异常退出");
         }
