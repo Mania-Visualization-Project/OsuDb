@@ -26,10 +26,12 @@
                 <ComboBox x:Name="FilterMode" Width="120" SelectionChanged="FilterMode_SelectionChanged" VerticalAlignment="Bottom" SelectedIndex="0">
                     <ComboBox.Items>
                         <ComboBoxItem Tag="all" Content="All"/>
+                        <ComboBoxItem Tag="std" Content="Std"/>
                         <ComboBoxItem Tag="mania" Content="Mania"/>
                         <ComboBoxItem Tag="taiko" Content="Taiko"/>
                     </ComboBox.Items>
                 </ComboBox>
+                <TextBox Margin="20 0 0 0" VerticalAlignment="Bottom" MinWidth="150" TextAlignment="Left" x:Name="SearchBar" PlaceholderText="在此处搜索" TextChanged="SearchBar_TextChanged"/>
             </StackPanel>
         </Grid>
         <ProgressRing x:Name="progressRing" Grid.Row="1" Width="80" Height="80"/>

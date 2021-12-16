@@ -63,6 +63,8 @@ namespace OsuDb.ReplayMasterUI.Pages
                 if (FcOnly.IsChecked == true)
                     result = result.Where(r => r.IsFullCombo);
                 var tag = (FilterMode.SelectedItem as ComboBoxItem)?.Tag as string;
+                if (tag == "std")
+                    result = result.Where(r => r.Mode is Core.Data.GameMode.Std);
                 if (tag == "mania")
                     result = result.Where(r => r.Mode is Core.Data.GameMode.Mania);
                 if (tag == "taiko")
@@ -73,6 +75,7 @@ namespace OsuDb.ReplayMasterUI.Pages
 
         private async void Refresh_Click(object sender, RoutedEventArgs e)
         {
+            SearchBar.Text = String.Empty;
             progressRing.IsActive = true;
             DataContext = null;
             await viewModel.RefreshAsync(new Progress<(int, int)>());
@@ -80,6 +83,23 @@ namespace OsuDb.ReplayMasterUI.Pages
             DataContext = viewModel;
             DoFilter();
             progressRing.IsActive = false;
+        }
+
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (viewModel is null) return;
+            var textbox = sender as TextBox;
+            var word = textbox!.Text;
+            if (string.IsNullOrEmpty(word)) return;
+            viewModel.Filter(replays =>
+            {
+                var keywords = word.Split(' ');
+                foreach (var keyword in keywords)
+                {
+                    replays = replays.Where(r => r.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+                }
+                return replays;
+            });
         }
 
         private async void ListView_ItemClick(object sender, ItemClickEventArgs e)
