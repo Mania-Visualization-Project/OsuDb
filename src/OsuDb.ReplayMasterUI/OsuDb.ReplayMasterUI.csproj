@@ -16,9 +16,9 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Pages\HomePage.xaml" />
+    <None Remove="Pages\RecordDetailPage.xaml" />
     <None Remove="Pages\ReplayPage.xaml" />
     <None Remove="Pages\SettingsPage.xaml" />
-    <None Remove="Pages\TestPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,7 +49,7 @@
     <ProjectReference Include="..\OsuDb.Core\OsuDb.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Pages\TestPage.xaml">
+    <Page Update="Pages\RecordDetailPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
