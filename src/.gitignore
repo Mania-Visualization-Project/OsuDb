@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+/OsuDb.ReplayMasterUI/ffmpeg.exe
+/OsuDb.ReplayMasterUI/ManiaReplayMaster.jar
+
 # User-specific files
 *.rsuser
 *.suo

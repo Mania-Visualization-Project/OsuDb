@@ -30,6 +30,18 @@
                 <TextBlock VerticalAlignment="Center" FontSize="20" Text="Osu成绩数据库:"/>
                 <TextBlock VerticalAlignment="Center" FontSize="20" Text="{Binding OsuScoreDbStatus}" Style="{StaticResource BodyTextBlockStyle}"/>
             </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="20">
+                <TextBlock VerticalAlignment="Center" FontSize="20" Text="Java运行环境:"/>
+                <TextBlock VerticalAlignment="Center" FontSize="20" Text="{Binding JreStatus}" Style="{StaticResource BodyTextBlockStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="20">
+                <TextBlock VerticalAlignment="Center" FontSize="20" Text="视频编码器:"/>
+                <TextBlock VerticalAlignment="Center" FontSize="20" Text="{Binding EncoderStatus}" Style="{StaticResource BodyTextBlockStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="20">
+                <TextBlock VerticalAlignment="Center" FontSize="20" Text="Mania Replay Master本体jar:"/>
+                <TextBlock VerticalAlignment="Center" FontSize="20" Text="{Binding ReplayMasterStatus}" Style="{StaticResource BodyTextBlockStyle}"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>
