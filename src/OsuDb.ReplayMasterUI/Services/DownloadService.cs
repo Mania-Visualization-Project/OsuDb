@@ -41,7 +41,7 @@ namespace OsuDb.ReplayMasterUI.Services
                 totalReadBytes += readBytes;
                 reportBytes += readBytes;
                 file.Write(buffer, 0, readBytes);
-                if (reportBytes >= totalBytes / 100)
+                if (reportBytes >= totalBytes / 100 || totalReadBytes == totalBytes)
                 {
                     progress.Report(new(totalReadBytes, totalBytes!));
                     reportBytes = 0;
