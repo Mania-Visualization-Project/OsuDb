@@ -48,6 +48,7 @@ namespace OsuDb.ReplayMasterUI.Services
             process.StartInfo.CreateNoWindow = true;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.RedirectStandardError = true;
+            process.StartInfo.Verb = "runas";
             process.OutputDataReceived += (s, e) =>
             {
                 if (e.Data is null) return;
@@ -72,7 +73,6 @@ namespace OsuDb.ReplayMasterUI.Services
             process.BeginOutputReadLine();
             await process.WaitForExitAsync();
             renderingCount--;
-            var err = await process.StandardError.ReadToEndAsync();
             if (process.ExitCode == 0)
             {
                 if (!Directory.Exists(config.VideoOutputDir))
@@ -82,7 +82,15 @@ namespace OsuDb.ReplayMasterUI.Services
                 return (success, finalOutputPath);
             }
             else
+            {
+                var err = await process.StandardError.ReadToEndAsync();
+                using var file = File.OpenWrite(Path.Combine(config.VideoOutputDir, "crash_log.txt"));
+                using var writer = new StreamWriter(file);
+                writer.WriteLine(err);
+                writer.Flush();
+                writer.Close();
                 return (false, "渲染程序异常退出");
+            }  
         }
 
         private readonly Config config;
