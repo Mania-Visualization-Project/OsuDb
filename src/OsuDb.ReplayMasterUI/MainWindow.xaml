@@ -15,6 +15,7 @@
         <NavigationView.MenuItems>
             <NavigationViewItem Icon="Home" Content="主页" Tag="home"/>
             <NavigationViewItem Icon="Play" Content="回放列表" Tag="replay"/>
+            <NavigationViewItem Icon="Copy" Content="手动选择" Tag="manual"/>
             <NavigationViewItem Icon="Save" Content="渲染队列" Tag="render"/>
         </NavigationView.MenuItems>
         <Frame x:Name="contentFrame"/>

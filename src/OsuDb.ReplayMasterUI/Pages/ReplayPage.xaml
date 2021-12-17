@@ -37,7 +37,7 @@
         <ProgressRing x:Name="progressRing" Grid.Row="1" Width="80" Height="80"/>
         <ListView ItemsSource="{Binding Replays}" Margin="0 10 0 0" Grid.Row="1" IsItemClickEnabled="True" ItemClick="ListView_ItemClick">
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="vm:ReplayModel">
+                <DataTemplate x:DataType="vm:OsuReplayModel">
                     <Grid Padding="8">
                         <StackPanel Spacing="10" VerticalAlignment="Center">
                             <TextBlock Text="{Binding Title}" Style="{StaticResource FlyoutPickerTitleTextBlockStyle}"/>

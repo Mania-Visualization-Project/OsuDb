@@ -40,6 +40,15 @@ namespace OsuDb.ReplayMasterUI
             return await folderPicker.PickSingleFolderAsync();
         }
 
+        public async Task<StorageFile> BrowseSingleFile(IEnumerable<string> types)
+        {
+            var filePicker = new FileOpenPicker();
+            foreach (var type in types) filePicker.FileTypeFilter.Add(type);
+            WinRT.Interop.InitializeWithWindow.Initialize(filePicker, m_hwnd);
+
+            return await filePicker.PickSingleFileAsync();
+        }
+
         public async void ShowDialog(ContentDialog dialog)
         {
             dialog.XamlRoot = this.Content.XamlRoot;
@@ -55,6 +64,7 @@ namespace OsuDb.ReplayMasterUI
             ("replay", typeof(ReplayPage)),
             ("settings", typeof(SettingsPage)),
             ("render", typeof(RenderPage)),
+            ("manual", typeof(ManualRenderPage)),
         };
 
         private void NavigationView_Loaded(object sender, RoutedEventArgs e)

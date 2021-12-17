@@ -16,9 +16,9 @@ namespace OsuDb.ReplayMasterUI.ViewModels
             this.osuDbService = dbService;
         }
 
-        public ObservableCollection<ReplayModel> Replays => replays ??= new ObservableCollection<ReplayModel>();
+        public ObservableCollection<OsuReplayModel> Replays => replays ??= new ObservableCollection<OsuReplayModel>();
 
-        public void Filter(Func<IEnumerable<ReplayModel>, IEnumerable<ReplayModel>> filter)
+        public void Filter(Func<IEnumerable<OsuReplayModel>, IEnumerable<OsuReplayModel>> filter)
         {
             var filtered = filter.Invoke(GetAllreplaysFromCache());
             Replays.Clear();
@@ -42,15 +42,15 @@ namespace OsuDb.ReplayMasterUI.ViewModels
         }
 
         private readonly OsuDbService osuDbService;
-        private ObservableCollection<ReplayModel> replays = null!;
+        private ObservableCollection<OsuReplayModel> replays = null!;
 
-        private IEnumerable<ReplayModel> GetAllreplaysFromCache()
+        private IEnumerable<OsuReplayModel> GetAllreplaysFromCache()
         {
             foreach (var score in osuDbService.ScoreDb.Scores.OrderByDescending(x => x.PlayTime))
             {
                 var mapExsists = osuDbService.OsuBeatmapDb!.BeatmapHashDic.TryGetValue(score.BeatmapMd5, out var beatmap);
                 if (!mapExsists) continue;
-                yield return new ReplayModel
+                yield return new OsuReplayModel
                 {
                     BeatmapMd5 = score.BeatmapMd5,
                     Combo = score.Combo,

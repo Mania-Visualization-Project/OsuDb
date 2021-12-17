@@ -1,0 +1,22 @@
+﻿<Page
+    x:Class="OsuDb.ReplayMasterUI.Pages.ManualRenderPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:OsuDb.ReplayMasterUI.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="SelectBeatmap" Click="SelectBeatmap_Click" Content="选择谱面文件"/>
+            <TextBlock x:Name="BeatmapPath" Text="请选择文件(osu/osz/mc/mcz/zip)"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="SelectRecord" Click="SelectRecord_Click" Content="选择回放文件"/>
+            <TextBlock x:Name="RecordPath" Text="请选择文件(osr/mr)"/>
+        </StackPanel>
+        <Button x:Name="Render" Content="添加到渲染队列" Click="Render_Click"/>
+    </StackPanel>
+</Page>

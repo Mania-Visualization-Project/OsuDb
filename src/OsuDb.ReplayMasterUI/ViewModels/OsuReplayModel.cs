@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OsuDb.ReplayMasterUI.ViewModels
 {
-    internal class ReplayModel
+    internal class OsuReplayModel
     {
         public string Title { get; set; } = string.Empty;
 

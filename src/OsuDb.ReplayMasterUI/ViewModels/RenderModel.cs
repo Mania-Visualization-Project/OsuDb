@@ -5,6 +5,12 @@ namespace OsuDb.ReplayMasterUI.ViewModels
 {
     internal class RenderModel : INotifyPropertyChanged
     {
+        public string Title
+        {
+            get => title;
+            set { title = value; NotifyPropertyChanged(); }
+        }
+
         public int Progress
         {
             get => progress;
@@ -35,6 +41,7 @@ namespace OsuDb.ReplayMasterUI.ViewModels
             set { finished = value; NotifyPropertyChanged(); }
         }
 
+        private string title = string.Empty;
         private int progress;
         private bool isFailed;
         private string errorMessage = string.Empty;
@@ -42,8 +49,6 @@ namespace OsuDb.ReplayMasterUI.ViewModels
         private bool finished;
 
         public string StartTime { get; set; } = string.Empty;
-
-        public ReplayModel Replay { get; set; } = null!;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

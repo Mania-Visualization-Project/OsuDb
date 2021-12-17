@@ -134,7 +134,7 @@ namespace OsuDb.ReplayMasterUI.Pages
 
         private async void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var record = e.ClickedItem as ReplayModel ?? throw new InvalidCastException();
+            var record = e.ClickedItem as OsuReplayModel ?? throw new InvalidCastException();
             var viewModel = DI.GetService<RecordDetailViewModel>();
             viewModel.Replay = record;
 

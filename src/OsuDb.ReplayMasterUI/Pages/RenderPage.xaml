@@ -26,7 +26,7 @@
                 <DataTemplate x:DataType="vm:RenderModel">
                     <Grid Padding="8">
                         <StackPanel Spacing="10" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding Replay.Title}" Style="{StaticResource FlyoutPickerTitleTextBlockStyle}"/>
+                            <TextBlock Text="{Binding Title}" Style="{StaticResource FlyoutPickerTitleTextBlockStyle}"/>
                             <TextBlock Text="{Binding StartTime}" Style="{StaticResource  BodyTextBlockStyle}"/>
                         </StackPanel>
                         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">

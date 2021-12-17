@@ -11,6 +11,6 @@ namespace OsuDb.ReplayMasterUI.ViewModels
     {
         public ContentDialog Dialog { get; set; } = null!;
 
-        public ReplayModel Replay { get; set; } = null!;
+        public OsuReplayModel Replay { get; set; } = null!;
     }
 }

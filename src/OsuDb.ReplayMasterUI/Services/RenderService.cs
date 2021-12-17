@@ -22,16 +22,13 @@ namespace OsuDb.ReplayMasterUI.Services
 
         private int renderingCount = 0;
 
-        public async Task<(bool, string)> RenderAsync(ReplayModel replay, string configName, IProgress<int> progress)
+        public async Task<(bool, string)> RenderAsync(string beatmapPath, string replayPath, 
+            string configName, string outputFileName, IProgress<int> progress)
         {
-            var osrName = $"{replay.BeatmapMd5}-{replay.PlayTime.ToFileTimeUtc()}.osr";
-            var osuPath = Path.Combine(config.OsuRootPath, "Songs", replay.FolderName, replay.BeatmapFileName);
-            var osrPath = Path.Combine(config.OsuRootPath, "Data", "r", osrName);
-
             // check required files and dependencies.
-            if (!File.Exists(osrPath) || !File.Exists(osuPath)) return (false, "回放文件丢失");
-            var dependencyOk = dependencyChecker.IsEncoderExsists && 
-                               dependencyChecker.IsJreInstalled && 
+            if (!File.Exists(replayPath) || !File.Exists(beatmapPath)) return (false, "回放文件丢失");
+            var dependencyOk = dependencyChecker.IsEncoderExsists &&
+                               dependencyChecker.IsJreInstalled &&
                                dependencyChecker.IsReplayMasterExsists;
             if (!dependencyOk) return (false, "程序组件缺失，无法渲染");
 
@@ -42,7 +39,7 @@ namespace OsuDb.ReplayMasterUI.Services
             // run render.
             var message = string.Empty;
             var success = false;
-            var argument = $"-jar \"{config.ReplayMasterPath}\" \"{osuPath}\" \"{osrPath}\" \"{renderOptionService.GetRenderOptionsFile(configName)}\"";
+            var argument = $"-jar \"{config.ReplayMasterPath}\" \"{beatmapPath}\" \"{replayPath}\" \"{renderOptionService.GetRenderOptionsFile(configName)}\"";
             var process = new Process();
             process.StartInfo.WorkingDirectory = config.CurrentPath;
             process.StartInfo.FileName = "java.exe";
@@ -78,10 +75,9 @@ namespace OsuDb.ReplayMasterUI.Services
             var err = await process.StandardError.ReadToEndAsync();
             if (process.ExitCode == 0)
             {
-                if (!Directory.Exists(config.VideoOutputDir)) 
+                if (!Directory.Exists(config.VideoOutputDir))
                     Directory.CreateDirectory(config.VideoOutputDir);
-                var finalOutputPath = Path.Combine(config.VideoOutputDir, 
-                    $"{replay.BeatmapFileName.Replace(".osu", string.Empty)}_{replay.PlayTime:yyyyMMdd_hhmmss}.mp4");
+                var finalOutputPath = Path.Combine(config.VideoOutputDir, outputFileName);
                 File.Move(message, finalOutputPath, true);
                 return (success, finalOutputPath);
             }
