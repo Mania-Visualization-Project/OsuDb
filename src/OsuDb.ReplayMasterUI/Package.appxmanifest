@@ -4,12 +4,13 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  IgnorableNamespaces="uap rescap">
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  IgnorableNamespaces="uap rescap mp">
 
   <Identity
     Name="10285TokenTeam.ManiaReplayMaster"
-    Publisher="CN=azhrzho"
-    Version="1.0.10.0" />
+    Publisher="CN=70AFA52F-6E22-4194-9756-D728AC6196CF"
+    Version="1.0.14.0" />
 
   <Properties>
     <DisplayName>Mania Replay Master</DisplayName>
