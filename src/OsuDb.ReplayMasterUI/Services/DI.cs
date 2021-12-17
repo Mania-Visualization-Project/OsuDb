@@ -38,6 +38,7 @@ namespace OsuDb.ReplayMasterUI.Services
             services.AddSingleton<DependencyChecker>();
             services.AddSingleton<DownloadService>();
             services.AddSingleton<RenderService>();
+            services.AddSingleton<RenderOptionService>();
 
             services.AddTransient<ReplayViewModel>();
             services.AddTransient<HomeViewModel>();

@@ -30,6 +30,9 @@
                             <TextBlock Text="{Binding StartTime}" Style="{StaticResource  BodyTextBlockStyle}"/>
                         </StackPanel>
                         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                            <HyperlinkButton VerticalAlignment="Center" Visibility="{Binding Finished, Mode=OneWay}" 
+                                             Tag="{Binding OutputFilePath, Mode=OneWay}" Content="打开文件夹"
+                                             Click="HyperlinkButton_Click"/>
                             <TextBlock Text="{Binding Progress, Mode=OneWay}" Style="{StaticResource SubtitleTextBlockStyle}"/>
                             <SymbolIcon Visibility="{Binding IsFailed, Mode=OneWay}" Symbol="Cancel" Foreground="Red"/>
                             <SymbolIcon Visibility="{Binding Finished, Mode=OneWay}" Symbol="Accept" Foreground="Green"/>

@@ -11,17 +11,18 @@ namespace OsuDb.ReplayMasterUI.Services
 {
     internal class RenderService
     {
-        public RenderService(Config config, DependencyChecker checker)
+        public RenderService(Config config, DependencyChecker checker, RenderOptionService renderOptions)
         {
             this.config = config;
+            this.renderOptionService = renderOptions;
             this.dependencyChecker = checker;
         }
 
-        public int ParallelRenderConut { get; set; } = 1;
+        public int ParallelRenderConut { get; set; } = 3;
 
         private int renderingCount = 0;
 
-        public async Task<(bool, string)> RenderAsync(ReplayModel replay, IProgress<int> progress)
+        public async Task<(bool, string)> RenderAsync(ReplayModel replay, string configName, IProgress<int> progress)
         {
             var osrName = $"{replay.BeatmapMd5}-{replay.PlayTime.ToFileTimeUtc()}.osr";
             var osuPath = Path.Combine(config.OsuRootPath, "Songs", replay.FolderName, replay.BeatmapFileName);
@@ -34,8 +35,6 @@ namespace OsuDb.ReplayMasterUI.Services
                                dependencyChecker.IsReplayMasterExsists;
             if (!dependencyOk) return (false, "程序组件缺失，无法渲染");
 
-            // todo: check config file.
-
             // parallel render count limit.
             while (renderingCount >= ParallelRenderConut)
                 await Task.Delay(500);
@@ -43,8 +42,9 @@ namespace OsuDb.ReplayMasterUI.Services
             // run render.
             var message = string.Empty;
             var success = false;
-            var argument = $"-jar \"{config.ReplayMasterPath}\" \"{osuPath}\" \"{osrPath}\" \"{config.ReplayMasterConfigPath}\"";
+            var argument = $"-jar \"{config.ReplayMasterPath}\" \"{osuPath}\" \"{osrPath}\" \"{renderOptionService.GetRenderOptionsFile(configName)}\"";
             var process = new Process();
+            process.StartInfo.WorkingDirectory = config.CurrentPath;
             process.StartInfo.FileName = "java.exe";
             process.StartInfo.Arguments = argument;
             process.StartInfo.UseShellExecute = false;
@@ -75,14 +75,22 @@ namespace OsuDb.ReplayMasterUI.Services
             process.BeginOutputReadLine();
             await process.WaitForExitAsync();
             renderingCount--;
-            // var err = await process.StandardError.ReadToEndAsync();
+            var err = await process.StandardError.ReadToEndAsync();
             if (process.ExitCode == 0)
-                 return (success, message);
+            {
+                if (!Directory.Exists(config.VideoOutputDir)) 
+                    Directory.CreateDirectory(config.VideoOutputDir);
+                var finalOutputPath = Path.Combine(config.VideoOutputDir, 
+                    $"{replay.BeatmapFileName.Replace(".osu", string.Empty)}_{replay.PlayTime:yyyyMMdd_hhmmss}.mp4");
+                File.Move(message, finalOutputPath, true);
+                return (success, finalOutputPath);
+            }
             else
                 return (false, "渲染程序异常退出");
         }
 
         private readonly Config config;
         private readonly DependencyChecker dependencyChecker;
+        private readonly RenderOptionService renderOptionService;
     }
 }

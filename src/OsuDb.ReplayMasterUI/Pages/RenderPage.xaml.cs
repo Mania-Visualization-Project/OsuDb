@@ -14,6 +14,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using OsuDb.ReplayMasterUI.ViewModels;
 using OsuDb.ReplayMasterUI.Services;
+using System.Diagnostics;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -33,5 +34,13 @@ namespace OsuDb.ReplayMasterUI.Pages
         }
 
         private readonly RenderViewModel viewModel;
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as HyperlinkButton ?? throw new InvalidCastException();
+            var path = button.Tag as string;
+
+            Process.Start("explorer.exe", $"/select, \"{path}\"");
+        }
     }
 }

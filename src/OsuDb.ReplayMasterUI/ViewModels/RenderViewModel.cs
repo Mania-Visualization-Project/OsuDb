@@ -34,7 +34,7 @@ namespace OsuDb.ReplayMasterUI.ViewModels
                 renderItem.Progress = p;
             });
 
-            var (success, msg) = await renderService.RenderAsync(replay, progress);
+            var (success, msg) = await renderService.RenderAsync(replay, "default", progress);
             if (!success)
             {
                 renderItem.IsFailed = true;
@@ -42,6 +42,7 @@ namespace OsuDb.ReplayMasterUI.ViewModels
                 return;
             }
             renderItem.Finished = true;
+            renderItem.OutputFilePath = msg;
         }
     }
 }

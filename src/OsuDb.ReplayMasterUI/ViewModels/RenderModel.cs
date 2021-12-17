@@ -23,6 +23,12 @@ namespace OsuDb.ReplayMasterUI.ViewModels
             set { errorMessage = value; NotifyPropertyChanged(); }
         }
 
+        public string OutputFilePath
+        {
+            get => outputFilePath;
+            set { outputFilePath = value; NotifyPropertyChanged(); }
+        }
+
         public bool Finished
         {
             get => finished;
@@ -32,6 +38,7 @@ namespace OsuDb.ReplayMasterUI.ViewModels
         private int progress;
         private bool isFailed;
         private string errorMessage = string.Empty;
+        private string outputFilePath = string.Empty;
         private bool finished;
 
         public string StartTime { get; set; } = string.Empty;
