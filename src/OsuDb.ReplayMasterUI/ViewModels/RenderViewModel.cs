@@ -39,7 +39,7 @@ namespace OsuDb.ReplayMasterUI.ViewModels
             {
                 renderItem.Progress = p;
             });
-            var outputName = $"{renderItem.Title}_{DateTime.Now:yyyyMMdd_hhmmss}.mp4";
+            var outputName = $"{renderItem.Title}_{DateTime.Now:yyyyMMdd_HHmmss}.mp4";
             var (success, msg) = await renderService.RenderAsync(beatmapPath, replayPath, "default", outputName, progress);
             if (!success)
             {
