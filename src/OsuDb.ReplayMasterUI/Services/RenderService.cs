@@ -11,7 +11,7 @@ namespace OsuDb.ReplayMasterUI.Services
 {
     internal class RenderService
     {
-        public RenderService(Config config, DependencyChecker checker, RenderOptionService renderOptions)
+        public RenderService(Config config, DependencyEnsureService checker, RenderOptionService renderOptions)
         {
             this.config = config;
             this.renderOptionService = renderOptions;
@@ -27,9 +27,9 @@ namespace OsuDb.ReplayMasterUI.Services
         {
             // check required files and dependencies.
             if (!File.Exists(replayPath) || !File.Exists(beatmapPath)) return (false, "回放文件丢失");
-            var dependencyOk = dependencyChecker.IsEncoderExsists &&
+            var dependencyOk = dependencyChecker.EnsureDecoder() &&
                                dependencyChecker.IsJreInstalled &&
-                               dependencyChecker.IsReplayMasterExsists;
+                               dependencyChecker.EnsureReplay();
             if (!dependencyOk) return (false, "程序组件缺失，无法渲染");
 
             // parallel render count limit.
@@ -41,7 +41,7 @@ namespace OsuDb.ReplayMasterUI.Services
             var success = false;
             var argument = $"-jar \"{config.ReplayMasterPath}\" \"{beatmapPath}\" \"{replayPath}\" \"{renderOptionService.GetRenderOptionsFile(configName)}\"";
             var process = new Process();
-            process.StartInfo.WorkingDirectory = config.CurrentPath;
+            process.StartInfo.WorkingDirectory = Path.GetTempPath();
             process.StartInfo.FileName = "java.exe";
             process.StartInfo.Arguments = argument;
             process.StartInfo.UseShellExecute = false;
@@ -94,7 +94,7 @@ namespace OsuDb.ReplayMasterUI.Services
         }
 
         private readonly Config config;
-        private readonly DependencyChecker dependencyChecker;
+        private readonly DependencyEnsureService dependencyChecker;
         private readonly RenderOptionService renderOptionService;
     }
 }

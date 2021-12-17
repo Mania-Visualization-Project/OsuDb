@@ -6,7 +6,7 @@ namespace OsuDb.ReplayMasterUI.ViewModels
 {
     internal class HomeViewModel
     {
-        public HomeViewModel(Config config, DependencyChecker dependency)
+        public HomeViewModel(Config config, DependencyEnsureService dependency)
         {
             this.config = config;
             this.dependencyChecker = dependency;
@@ -20,9 +20,9 @@ namespace OsuDb.ReplayMasterUI.ViewModels
 
         public string JreStatus => dependencyChecker.IsJreInstalled ? "已安装" : "未安装";
 
-        public string EncoderStatus => dependencyChecker.IsEncoderExsists ? "存在" : "未找到";
+        public string EncoderStatus => dependencyChecker.EnsureDecoder() ? "存在" : "未找到";
 
-        public string ReplayMasterStatus => dependencyChecker.IsReplayMasterExsists ? "存在" : "未找到";
+        public string ReplayMasterStatus => dependencyChecker.EnsureReplay() ? "存在" : "未找到";
 
         public void SetOsuRootPath(string path)
         {
@@ -31,6 +31,6 @@ namespace OsuDb.ReplayMasterUI.ViewModels
         }
 
         private readonly Config config;
-        private readonly DependencyChecker dependencyChecker;
+        private readonly DependencyEnsureService dependencyChecker;
     }
 }

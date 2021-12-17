@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace OsuDb.ReplayMasterUI.Services
 {
@@ -12,9 +13,9 @@ namespace OsuDb.ReplayMasterUI.Services
     {
         public string OsuRootPath { get; set; } = string.Empty;
 
-        public string EncoderPath => Path.Combine(CurrentPath, "ffmpeg.exe");
+        public string EncoderPath => Path.Combine(Path.GetTempPath(), "ffmpeg.exe");
 
-        public string ReplayMasterPath => Path.Combine(CurrentPath, "ManiaReplayMaster.jar");
+        public string ReplayMasterPath => Path.Combine(Path.GetTempPath(), "ManiaReplayMaster.jar");
 
         public string VideoOutputDir { get; set; } = @"C:\mrmOutput";
 
